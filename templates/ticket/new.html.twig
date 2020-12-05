@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Ticket{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-11">
+            <h1>Nouveau Ticket</h1>
+        </div>
+        <div class="col-md-1">
+            <a href="{{ path('main') }}" class="btn btn-primary">Retour</a>
+        </div>
+    </div>
+
+    <div class="row">
+        {{ include('ticket/_form.html.twig', {'button_label': 'Créer'}) }}
+    </div>
+{% endblock %}

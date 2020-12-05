@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Main{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-6">
+            {{ variable }} - <a href="{{ path('user_index') }}">Users</a>
+        </div>
+        <div class="col-md-6">
+            <img src="{{ asset('build/images/logo.svg') }}" height="50px" width="50px" alt="logo">
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

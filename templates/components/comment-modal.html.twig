@@ -1,0 +1,27 @@
+<div class="modal fade" id="modalComment" tabindex="-1" role="dialog" aria-labelledby="modalCommentLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalCommentLabel">Commenter</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{ form_start(formComment, { 'attr': {'class': 'col-md-12'} }) }}
+
+                    <div class="form-group">
+                        {{ form_label(formComment.content) }}
+                        {{ form_widget(formComment.content) }}
+                        {% if form_errors(formComment.content) %}
+                            {{ form_errors(formComment.content) }}
+                        {% endif %}
+                    </div>
+
+                    {{ form_widget(formComment.submit, { 'attr': {'class': 'btn btn-success'} }) }}
+
+                {{ form_end(formComment) }}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Ticket{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-11">
+            <h1>Edit Ticket</h1>
+        </div>
+        <div class="col-md-1">
+            <a href="{{ path('main') }}" class="btn btn-primary">Retour</a>
+        </div>
+    </div>
+
+    <div class="row">
+        {{ include('ticket/_form.html.twig', {'button_label': 'Modifier'}) }}
+    </div>
+
+    {% if app.user.isGranted('ROLE_ADMIN') %}
+        <div class="row">
+            {{ include('ticket/_delete_form.html.twig') }}
+        </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,66 @@
+{{ form_start(form) }}
+
+    <div class="form-group">
+        {% if user.media is defined  and user.media is not null %}
+            <img src="{{ asset('uploads/' ~ user.media.name) }}" class="img-fluid rounded" height="100px" width="100px"/>
+        {% endif %}
+
+        <div>
+            Upload
+            {{ form_widget(form.image, { 'attr': {'class': 'form-control'} }) }}
+
+            {% if form_errors(form.image) %}
+                {{ form_errors(form.image) }}
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.email) }}
+        {{ form_widget(form.email, { 'attr': {'class': 'form-control'} }) }}
+        {% if form_errors(form.email) %}
+            {{ form_errors(form.email) }}
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.firstname) }}
+        {{ form_widget(form.firstname, { 'attr': {'class': 'form-control'} }) }}
+        {% if form_errors(form.firstname) %}
+            {{ form_errors(form.firstname) }}
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.lastname) }}
+        {{ form_widget(form.lastname, { 'attr': {'class': 'form-control'} }) }}
+        {% if form_errors(form.lastname) %}
+            {{ form_errors(form.lastname) }}
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.isActive) }}
+        {{ form_widget(form.isActive) }}
+        {% if form_errors(form.isActive) %}
+            {{ form_errors(form.isActive) }}
+        {% endif %}
+    </div>
+
+    {% if user.password is defined and user.password is not null %}
+        {% set passwordRequired = false %}
+    {% else %}
+        {% set passwordRequired = true %}
+    {% endif %}
+
+    <div class="form-group">
+        {{ form_row(form.plainPassword.first, { required: passwordRequired }) }}
+        {{ form_row(form.plainPassword.second, { required: passwordRequired }) }}
+        {% if form_errors(form.plainPassword) %}
+            {{ form_errors(form.plainPassword) }}
+        {% endif %} 
+    </div>
+
+    {{ form_widget(form.submit, { 'attr': {'class': 'btn btn-success'} }) }}
+
+{{ form_end(form) }}

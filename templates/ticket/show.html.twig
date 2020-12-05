@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ticket{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-11">
+            <h1>Ticket - {{ ticket.title}}</h1>
+        </div>
+        <div class="col-md-1">
+            <div class="btn-group" role="group">
+                <a href="{{ path('ticket_edit', {'id': ticket.id}) }}" class="btn btn-outline-primary">Modifier</a>
+                <a href="{{ path('main') }}" class="btn btn-outline-primary">Retour</a>
+            </div>
+        </div>
+    </div>
+
+    <row class="row">
+        <div class="col-md-6">
+            <h2>Activités</h2>
+            {% if app.user.isGranted('ROLE_ADMIN') %}
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalComment">Commenter</button>
+            {% endif %}
+
+            <table class="table">
+                <tbody>
+                    {% for log in ticket.ticketLogs %}
+                        <tr>
+                            {% if log.createdBy.media %}
+                                <th><img src="{{ asset('uploads/' ~ log.createdBy.media.name) }}" class="img-fluid img-thumbnail rounded" height="50px" width="50px"/></th>
+                            {% else %}
+                                <th><img src="{{ asset('build/images/logo.svg') }}" class="img-fluid img-thumbnail rounded" height="50px" width="50px"/></th>
+                            {% endif %}
+                            <td>{{ log.createdBy.username ~ ' ' ~ log.content }}</td>
+                            <td>{{ log.createdAt|date('d/m/Y H:i:s') }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <h2>Informations</h2>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>#</th>
+                        <td>{{ ticket.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Priorité</th>
+                        <td>{{ ticket.ticketPriority.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Type</th>
+                        <td>{{ ticket.ticketType.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td>{{ ticket.description|raw }}</td>
+                    </tr>
+                    <tr>
+                        <th>Créer par</th>
+                        <td>{{ ticket.createdBy.username }}</td>
+                    </tr>
+                    <tr>
+                        <th>Date de création</th>
+                        <td>{{ ticket.createdAt|date('m/d/Y H:i:s') }}</td>
+                    </tr>
+                    <tr>
+                        <th>Date de mise à jour</th>
+                        <td>{{ ticket.updatedAt|date('m/d/Y H:i:s') }}</td>
+                    </tr>
+                    <tr>
+                        <th>Pièce jointe</th>
+                        <td><img src="{{ asset('uploads/' ~ ticket.media.name) }}" class="img-fluid img-thumbnail rounded" height="auto" width="100%"/></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </row>
+
+    {% if app.user.isGranted('ROLE_ADMIN') %}
+        {# DELETE #}
+        <div class="row">
+            {{ include('ticket/_delete_form.html.twig') }}
+        </div>
+
+        {# COMMENT MODAL#}
+        {{ include('components/comment-modal.html.twig') }}
+    {% endif %}
+{% endblock %}

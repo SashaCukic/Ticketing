@@ -1,0 +1,52 @@
+{{ form_start(form, { 'attr': {'class': 'col-md-12'} }) }}
+    <div class="form-row">
+        <div class="col">
+            {{ form_label(form.ticketType) }}
+            {{ form_widget(form.ticketType, { 'attr': {'class': 'form-control'} }) }}
+            {% if form_errors(form.ticketType) %}
+                {{ form_errors(form.ticketType) }}
+            {% endif %}
+        </div>
+        <div class="col">
+            {{ form_label(form.ticketPriority) }}
+            {{ form_widget(form.ticketPriority, { 'attr': {'class': 'form-control'} }) }}
+            {% if form_errors(form.ticketPriority) %}
+                {{ form_errors(form.ticketPriority) }}
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.title) }}
+        {{ form_widget(form.title, { 'attr': {'class': 'form-control'} }) }}
+        {% if form_errors(form.title) %}
+            {{ form_errors(form.title) }}
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.description) }}
+        {{ form_widget(form.description) }}
+        {% if form_errors(form.description) %}
+            {{ form_errors(form.description) }}
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        {% if ticket.media is defined  and ticket.media is not null %}
+            <img src="{{ asset('uploads/' ~ ticket.media.name) }}" class="img-fluid rounded" height="100px" width="100px"/>
+        {% endif %}
+
+        <div>
+            Pièce jointe
+            {{ form_widget(form.image, { 'attr': {'class': 'form-control'} }) }}
+
+            {% if form_errors(form.image) %}
+                {{ form_errors(form.image) }}
+            {% endif %}
+        </div>
+    </div>
+
+    {{ form_widget(form.submit, { 'attr': {'class': 'btn btn-success'} }) }}
+
+{{ form_end(form) }}

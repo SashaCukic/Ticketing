@@ -1,0 +1,16 @@
+{% for ticket in tickets %}
+    <tr>
+        <td>{{ ticket.id }}</td>
+        <td>{{ ticket.ticketType.name }}</td>
+        <td>{{ ticket.createdBy.username }}</td>
+        <td>{{ ticket.title }}</td>
+        <td>{{ ticket.ticketPriority.name }}</td>
+        <td>{{ ticket.updatedAt|date('m/d/Y H:i:s') }}</td>
+        <td>
+            <div class="btn-group" role="group">
+                <a href="{{ path('ticket_show', {'id': ticket.id}) }}" class="btn btn-outline-primary">Voir</a>
+                <a href="{{ path('ticket_edit', {'id': ticket.id}) }}" class="btn btn-outline-primary">Modifier</a>
+            </div>
+        </td>
+    </tr>
+{% endfor %}

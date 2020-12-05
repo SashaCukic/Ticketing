@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ticket index{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-11">
+            <h1>Tickets</h1>
+        </div>
+        <div class="col-md-1">
+            <a href="{{ path('ticket_new') }}" class="btn btn-primary">Nouveau</a>
+        </div>
+    </div>
+
+    {% if app.user.isGranted('ROLE_ADMIN') %}
+        <div class="row">
+            <div class="form-group">
+                <label for="search">Rechercher un client</label>
+                <select class="form-control" id="search">
+                    {% for client in clients %}
+                        <option value="{{ client.id }}">{{ client.username }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    {% endif %}
+    
+    
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Type</th>
+                <th>Titre</th>
+                <th>Créer par</th>
+                <th>Priorité</th>
+                <th>Dernière activité</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="tickets-table">
+            {{ include('components/tickets-table.html.twig', {'tickets': tickets}) }}
+        </tbody>
+    </table>
+{% endblock %}
